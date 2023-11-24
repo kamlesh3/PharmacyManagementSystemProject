@@ -17,5 +17,19 @@ namespace Pharmacy.BL
                     DataAccessLayer.CreateParameter("@pass", SqlDbType.NVarChar, pass));
             return dt;
         }
+
+        public static DataTable emailCheck(string name)
+        {
+            DataTable dt = DataAccessLayer.ExecuteTable("Checkemail", CommandType.StoredProcedure,
+                    DataAccessLayer.CreateParameter("@name", SqlDbType.NVarChar, name));
+            return dt;
+        }
+
+        public static void updatePass(string name, string pass)
+        {
+            DataAccessLayer.ExecuteTable("LoginPassword_Update", CommandType.StoredProcedure,
+                    DataAccessLayer.CreateParameter("@name", SqlDbType.NVarChar, name),
+                    DataAccessLayer.CreateParameter("@pass", SqlDbType.NVarChar, pass));
+        }
     }
 }

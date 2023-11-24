@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using Pharmacy.BL;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.ComponentModel.DataAnnotations;
 
 namespace Pharmacy.PL
 {
@@ -19,17 +20,30 @@ namespace Pharmacy.PL
     {
         FRM_MAIN frm = new FRM_MAIN();
         FRM_Cashier Cashier = new FRM_Cashier();
+        ResetPassword resetpassword = new ResetPassword();  
         string randomCode;
+        public static string resetEmail {  get; set; }
         bool flag=false;
+        bool flag1=false;
         public Verify()
         {
             InitializeComponent();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
 
+            if (textEmail.Text == string.Empty)
+            {
+                textEmail.Focus();
+                return;
+            }
+            if (textPassword.Text == string.Empty)
+            {
+                textPassword.Focus();
+                return;
+            }
             DataTable dt = Login.login(textEmail.Text, textPassword.Text);
             if (dt.Rows.Count > 0)
             {
@@ -95,7 +109,7 @@ namespace Pharmacy.PL
             try
             {
                 smtpClient.Send(message);
-                MessageBox.Show("Confirmation Email sent successfully");
+                MessageBox.Show("Email sent successfully");
             }
             catch (Exception ex)
             {
@@ -157,6 +171,12 @@ namespace Pharmacy.PL
             {
                 MessageBox.Show("OPT not verified " + randomCode + " "+ otp +" " + (randomCode==otp));
             }
+
+            if(flag==true && flag1==true)
+            {
+                this.Hide();
+                resetpassword.Show();
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -181,7 +201,7 @@ namespace Pharmacy.PL
             }
             catch (Exception ex)
             {
-                MessageBox.Show(textEmail.Text.ToString()+" is not registered email");
+                MessageBox.Show("Email or Password is not correct");
             }
 
 
@@ -189,15 +209,51 @@ namespace Pharmacy.PL
             {
                 emailSend(textEmail.Text.ToString());
             }
-            else
-            {
-                MessageBox.Show("Please enter correct email");
-            }
         }
         private void Verify_Load(object sender, EventArgs e)
         {
 
         }
 
+       
+        public void ResetPassword(string password)
+        {
+            Login.updatePass(resetEmail, password);
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            if (textEmail.Text == string.Empty)
+            {
+                textEmail.Focus();
+                return;
+            }
+            
+            try
+            {
+                DataTable dt = Login.emailCheck(textEmail.Text);
+                resetEmail = dt.Rows[0]["U_Name"].ToString();
+                emailSend(textEmail.Text.ToString());
+                MessageBox.Show("Please enter OTP to verify you as a authentic User");
+                flag1 = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(textEmail.Text.ToString() + " is not registered email. "+"Plaese enter correct email to reset password");
+            }
+        }
+        private void otpVerify()
+        {
+            string otp = textOtp.Text.Trim().ToString();
+            if (randomCode == otp)
+            {
+                flag = true;
+                MessageBox.Show("OTP verified successfully");
+            }
+            else
+            {
+                MessageBox.Show("OPT not verified " + randomCode + " " + otp + " " + (randomCode == otp));
+            }
+        }
     }
 }
