@@ -1,2 +1,34 @@
 Note:
  In Pharmacy database, Go to User table and then keep valid Email for U_Name and U_FULL_Name column.
+ In Pharmacy database, Go to User table and then keep valid Email for U_Name and U_FULL_Name column.
+
+Query to be Run:
+
+USE [Pharmacy]
+GO
+/****** Object:  StoredProcedure [dbo].[LoginPassword_Update]    Script Date: 24-11-2023 17:52:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create procedure [dbo].[LoginPassword_Update]
+@name nvarchar(30),@pass nvarchar(30)
+as
+update Users set U_Pass=@pass where U_Name=@name;
+return
+
+
+
+
+USE [Pharmacy]
+GO
+/****** Object:  StoredProcedure [dbo].[Checkemail]    Script Date: 24-11-2023 18:48:30 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create procedure [dbo].[Checkemail]
+@name nvarchar(30)
+as
+select * from Users where U_Name=@name;
+return
