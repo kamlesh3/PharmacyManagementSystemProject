@@ -1,6 +1,5 @@
 Note:
  In Pharmacy database, Go to User table and then keep valid Email for U_Name and U_FULL_Name column.
- In Pharmacy database, Go to User table and then keep valid Email for U_Name and U_FULL_Name column.
 
 Query to be Run:
 
