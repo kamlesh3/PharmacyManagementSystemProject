@@ -17,8 +17,6 @@ update Users set U_Pass=@pass where U_Name=@name;
 return
 
 
-
-
 USE [Pharmacy]
 GO
 /****** Object:  StoredProcedure [dbo].[Checkemail]    Script Date: 24-11-2023 18:48:30 ******/
