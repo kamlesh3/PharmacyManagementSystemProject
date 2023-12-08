@@ -68,7 +68,7 @@ namespace Pharmacy.PL
                 }
                 else
                 {
-                    MessageBox.Show("Invalid Code");
+                    MessageBox.Show("Please verify your identity with OTP Verification");
                 }
                
             }
@@ -88,7 +88,7 @@ namespace Pharmacy.PL
         private void emailSend(string toemail)
         {
             var fromMail = "pharmacysystemautomail@gmail.com";
-            var fromPwd = "tfoulgaxgkpzrnbw";
+            var fromPwd = "mqrxlajlqcephnav";
 
             Random rand = new Random();
             randomCode = (rand.Next(999999)).ToString();
@@ -169,7 +169,7 @@ namespace Pharmacy.PL
             }
             else
             {
-                MessageBox.Show("OPT not verified " + randomCode + " "+ otp +" " + (randomCode==otp));
+                MessageBox.Show("OPT not verified ");
             }
 
             if(flag==true && flag1==true)
@@ -216,7 +216,7 @@ namespace Pharmacy.PL
         }
 
        
-        public void ResetPassword(string password)
+       public void ResetPassword(string password)
         {
             Login.updatePass(resetEmail, password);
         }
